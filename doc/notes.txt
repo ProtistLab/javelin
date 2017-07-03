@@ -1,0 +1,17 @@
+** Note: Mon Jul  3 10:23:00 2017 **
+
+http://javelintest.s3-website-us-west-2.amazonaws.com
+
+TODO
+
+[] actually hook up output of Javelin to something browsable.
+  [x] Get S3 bucket running
+  [x] Enable permissions for default iam role
+  [x] Enable S3 permissions
+  [X] Create S3 object
+  [] Read from S3 bucket, for index.html edit
+  [] Use index.html to maintain count
+  [] Update index.html with new object name/link
+[] Try a static web site renderer.
+[] Try AWS SNS / SQS instead of Kinesis
+
