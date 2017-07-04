@@ -28,13 +28,14 @@
   (let [s3-client (.createClient s3 (clj->js {}))
         s3-params {:localFile "/tmp/document.html"
                    :s3Params {:Bucket "javelintest"
-                              :Key "document.html"}}]
-    (doall (map #(let [md-txt (.render md (str (b64/decodeString (-> % :kinesis :data))))]
-                   (js/console.log md-txt)
-                   (.writeFileSync fs "/tmp/document.html" md-txt)
-                   (.uploadFile s3-client (clj->js s3-params)))
-                Records))
-    (p/promise             ; Um, a terrible hack, that I'll fix shortly
-     (fn [resolve reject]
-       (p/schedule 2000 (fn [] (resolve {:waited 2000})))))))
+                              :Key "document.html"}}
+        promises (doall (map #(let [md-txt (.render md (str (b64/decodeString (-> % :kinesis :data))))]
+                                (js/console.log md-txt)
+                                (.writeFileSync fs "/tmp/document.html" md-txt)
+                                (p/promise (fn [resolve reject]
+                                             (let [uploader (.uploadFile s3-client (clj->js s3-params))]
+                                               (.on uploader 'end' (fn [] (resolve :success)))
+                                               (.on uploader 'error' (fn [r] (reject {:error r})))))))
+                             Records))]
+    (p/then promises (fn [res] (every? #(= :success %) res)))))
 
