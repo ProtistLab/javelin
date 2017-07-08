@@ -10,9 +10,10 @@
             [lein-npm       "0.6.0"]
             [lein-doo       "0.1.7"]
             [io.nervous/lein-cljs-lambda "0.6.6"]]
-  :npm {:dependencies [[source-map-support "0.4.0"
-                        markdown-it "8.3.1"
-                        s3 "4.4.0"]]}
+  :npm {:dependencies [[source-map-support "0.4.0"]
+                       [markdown-it        "8.3.1"]
+                       [s3                 "4.4.0"]
+                       [bluebird           "3.5.0"]]}
   :source-paths ["src"]
   :cljs-lambda
   {:defaults      {:role "arn:aws:iam::183162473255:role/cljs-lambda-default"}
