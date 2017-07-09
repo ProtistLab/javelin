@@ -1,6 +1,8 @@
-(defproject javelin "0.1.0-SNAPSHOT"
-  :description "FIXME"
-  :url "http://please.FIXME"
+(defproject javelin "0.1.0"
+  :description "A markdown blogging engine built on AWS Lambda and Kinesis. Written in ClojureScript."
+  :url "https://github.com/ProtistLab/javelin"
+  :license {:name "BSD-3-Clause"
+            :url "https://opensource.org/licenses/BSD-3-Clause"}
   :dependencies [[org.clojure/clojure       "1.8.0"]
                  [org.clojure/clojurescript "1.9.456"]
                  [org.clojure/core.async    "0.2.395"]
@@ -12,10 +14,10 @@
             [io.nervous/lein-cljs-lambda "0.6.6"]]
   :npm {:dependencies [[source-map-support "0.4.0"]
                        [markdown-it        "8.3.1"]
-                       [s3                 "4.4.0"]
-                       [bluebird           "3.5.0"]]}
+                       [s3                 "4.4.0"]]}
   :source-paths ["src"]
   :cljs-lambda
+  ;; TODO find a better place for this.
   {:defaults      {:role "arn:aws:iam::183162473255:role/cljs-lambda-default"}
    :resource-dirs ["static"]
    :functions
